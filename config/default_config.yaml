@@ -1,0 +1,53 @@
+application:
+  name: "Sensor Analysis Dashboard"
+  version: "1.0.0"
+  max_channels: 64
+  buffer_size: 10000
+  update_rate: 60  # FPS
+
+logging:
+  level: "INFO"
+  file: "sensor_dashboard.log"
+  max_size: "10MB"
+  backup_count: 5
+
+data_processing:
+  fft:
+    window_function: "hann"
+    overlap_percent: 50
+    zero_padding: true
+  
+  filtering:
+    default_lowpass: 1000  # Hz
+    default_highpass: 0.1  # Hz
+  
+  anomaly_detection:
+    method: "statistical"
+    threshold: 2.5  # standard deviations
+    window_size: 1000
+
+visualization:
+  opengl:
+    version_major: 4
+    version_minor: 1
+    samples: 4  # Anti-aliasing
+  
+  charts:
+    max_points: 10000
+    auto_scale: true
+    grid_enabled: true
+
+sensors:
+  scan_interval: 5000  # ms
+  timeout: 1000  # ms
+  retry_count: 3
+
+alerts:
+  email:
+    enabled: false
+    smtp_server: ""
+    port: 587
+  
+  system:
+    enabled: true
+    sound: true
